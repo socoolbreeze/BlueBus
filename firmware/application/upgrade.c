@@ -130,6 +130,13 @@ uint8_t UpgradeProcess(BT_t *bt, IBus_t *ibus)
             ConfigSetSetting(CONFIG_SETTING_LAST_CONNECTED_DEVICE, 0x00);
         }
         LogRaw("Ran Upgrade 1.2.1\r\n");
+    // Changes in version 1.4.0
+    if (UpgradeVersionCompare(curMajor, curMinor, curPatch, 1, 4, 0) == 1) {
+        ConfigSetString(CONFIG_SETTING_PHONE_SOS_ADDRESS, "112", 15);
+        ConfigSetString(CONFIG_SETTING_PHONE_ASSIST_ADDRESS, "", 15);
+        ConfigGetString(CONFIG_SETTING_PHONE_FRIEND_ADDRESS, "", 15);
+        ConfigGetString(CONFIG_SETTING_EMERGENCY_INFO_ADDRESS, "", 31);
+        LogRaw("Ran Upgrade 1.4.0\r\n");
     }
     ConfigSetFirmwareVersion(
         FIRMWARE_VERSION_MAJOR,
